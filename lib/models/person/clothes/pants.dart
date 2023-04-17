@@ -1,10 +1,12 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:flutter/widgets.dart';
 
 part 'pants.mapper.dart';
 
+@immutable
 @MappableClass()
 class Pants with PantsMappable {
-  String material;
+  final String material;
 
-  Pants({required this.material});
+  const Pants({required this.material});
 }

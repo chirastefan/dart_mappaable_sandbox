@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:dart_mappable_sandbox/models/person/clothes/pants.dart';
 import 'package:flutter/material.dart';
 
 part 'clothes.mapper.dart';
@@ -7,7 +8,7 @@ part 'clothes.mapper.dart';
 @MappableClass()
 class Clothes with ClothesMappable {
   final String shirt;
-  final List<String> pants;
+  final List<Pants> pants;
 
   const Clothes({required this.shirt, required this.pants});
 }

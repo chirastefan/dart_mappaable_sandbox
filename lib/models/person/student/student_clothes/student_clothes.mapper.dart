@@ -11,7 +11,7 @@ class StudentClothesMapper extends MapperBase<StudentClothes> {
       ((_c = MapperContainer(
         mappers: {StudentClothesMapper()},
       ))
-        ..linkAll({ClothesMapper.container}));
+        ..linkAll({ClothesMapper.container, StudentPantsMapper.container}));
 
   @override
   StudentClothesMapperElement createElement(MapperContainer container) {
@@ -97,9 +97,10 @@ abstract class StudentClothesCopyWith<$R, $In extends StudentClothes,
     $Out extends Clothes> implements ClothesCopyWith<$R, $In, $Out> {
   StudentClothesCopyWith<$R2, $In, $Out2> chain<$R2, $Out2 extends Clothes>(
       Then<StudentClothes, $Out2> t, Then<$Out2, $R2> t2);
-  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get pants;
+  ListCopyWith<$R, StudentPants,
+      StudentPantsCopyWith<$R, StudentPants, StudentPants>> get pants;
   @override
-  $R call({String? shirt, List<String>? pants, String? badge});
+  $R call({String? shirt, List<StudentPants>? pants, String? badge});
 }
 
 class _StudentClothesCopyWithImpl<$R, $Out extends Clothes>
@@ -113,11 +114,14 @@ class _StudentClothesCopyWithImpl<$R, $Out extends Clothes>
           _StudentClothesCopyWithImpl($value, t, t2);
 
   @override
-  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get pants =>
-      ListCopyWith($value.pants, (v, t) => ObjectCopyWith(v, $identity, t),
+  ListCopyWith<$R, StudentPants,
+          StudentPantsCopyWith<$R, StudentPants, StudentPants>>
+      get pants => ListCopyWith(
+          $value.pants,
+          (v, t) => v.copyWith.chain<$R, StudentPants>($identity, t),
           (v) => call(pants: v));
   @override
-  $R call({String? shirt, List<String>? pants, String? badge}) =>
+  $R call({String? shirt, List<StudentPants>? pants, String? badge}) =>
       $then(StudentClothes(
           shirt: shirt ?? $value.shirt,
           pants: pants ?? $value.pants,
