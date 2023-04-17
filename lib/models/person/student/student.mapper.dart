@@ -11,7 +11,7 @@ class StudentMapper extends MapperBase<Student> {
       ((_c = MapperContainer(
         mappers: {StudentMapper()},
       ))
-        ..linkAll({PersonMapper.container, StudentClothesMapper.container}));
+        ..linkAll({PersonMapper.container, ClothesMapper.container}));
 
   @override
   StudentMapperElement createElement(MapperContainer container) {
@@ -34,7 +34,7 @@ class StudentMapperElement extends MapperElementBase<Student> {
       checkedType(v, (Map<String, dynamic> map) => fromMap(map));
   Student fromMap(Map<String, dynamic> map) => Student(
       name: container.$get(map, 'name'),
-      clothes: container.$get(map, 'clothes'),
+      clothes: container.$getOpt(map, 'clothes'),
       university: container.$get(map, 'university'));
 
   @override
@@ -49,18 +49,14 @@ class StudentMapperElement extends MapperElementBase<Student> {
 
   @override
   String stringify(Student self) =>
-      'Student(name: ${container.asString(self.name)}, clothes: ${container.asString(self.clothes)}, name: ${container.asString(self.name)}, clothes: ${container.asString(self.clothes)}, university: ${container.asString(self.university)})';
+      'Student(name: ${container.asString(self.name)}, clothes: ${container.asString(self.clothes)}, university: ${container.asString(self.university)})';
   @override
   int hash(Student self) =>
-      container.hash(self.name) ^
-      container.hash(self.clothes) ^
       container.hash(self.name) ^
       container.hash(self.clothes) ^
       container.hash(self.university);
   @override
   bool equals(Student self, Student other) =>
-      container.isEqual(self.name, other.name) &&
-      container.isEqual(self.clothes, other.clothes) &&
       container.isEqual(self.name, other.name) &&
       container.isEqual(self.clothes, other.clothes) &&
       container.isEqual(self.university, other.university);
@@ -95,10 +91,10 @@ abstract class StudentCopyWith<$R, $In extends Student, $Out extends Person>
     implements PersonCopyWith<$R, $In, $Out> {
   StudentCopyWith<$R2, $In, $Out2> chain<$R2, $Out2 extends Person>(
       Then<Student, $Out2> t, Then<$Out2, $R2> t2);
-  ListCopyWith<$R, StudentClothes,
-      StudentClothesCopyWith<$R, StudentClothes, StudentClothes>> get clothes;
   @override
-  $R call({String? name, List<StudentClothes>? clothes, String? university});
+  ListCopyWith<$R, Clothes, ClothesCopyWith<$R, Clothes, Clothes>>? get clothes;
+  @override
+  $R call({String? name, List<Clothes>? clothes, String? university});
 }
 
 class _StudentCopyWithImpl<$R, $Out extends Person>
@@ -111,16 +107,17 @@ class _StudentCopyWithImpl<$R, $Out extends Person>
       _StudentCopyWithImpl($value, t, t2);
 
   @override
-  ListCopyWith<$R, StudentClothes,
-          StudentClothesCopyWith<$R, StudentClothes, StudentClothes>>
-      get clothes => ListCopyWith(
-          $value.clothes,
-          (v, t) => v.copyWith.chain<$R, StudentClothes>($identity, t),
-          (v) => call(clothes: v));
+  ListCopyWith<$R, Clothes, ClothesCopyWith<$R, Clothes, Clothes>>?
+      get clothes => $value.clothes != null
+          ? ListCopyWith(
+              $value.clothes!,
+              (v, t) => v.copyWith.chain<$R, Clothes>($identity, t),
+              (v) => call(clothes: v))
+          : null;
   @override
-  $R call({String? name, List<StudentClothes>? clothes, String? university}) =>
+  $R call({String? name, Object? clothes = $none, String? university}) =>
       $then(Student(
           name: name ?? $value.name,
-          clothes: clothes ?? $value.clothes,
+          clothes: or(clothes, $value.clothes),
           university: university ?? $value.university));
 }
