@@ -8,6 +8,7 @@ part 'student.mapper.dart';
 @immutable
 @MappableClass()
 class Student extends Person with StudentMappable implements School {
+// class Student with StudentMappable implements School, Person {
   // @override
   // final String name;
   // @override
@@ -16,6 +17,8 @@ class Student extends Person with StudentMappable implements School {
   final String university;
 
   const Student({
+    // required this.name,
+    // required this.clothes,
     required super.name,
     required super.clothes,
     required this.university,
