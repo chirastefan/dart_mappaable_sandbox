@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:dart_mappable_sandbox/models/person/clothes/clothes.dart';
 import 'package:dart_mappable_sandbox/models/person/person.dart';
 import 'package:dart_mappable_sandbox/models/person/student/school.dart';
 import 'package:flutter/material.dart';
