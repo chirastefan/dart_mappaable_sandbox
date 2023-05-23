@@ -5,104 +5,103 @@
 
 part of 'person.dart';
 
-class PersonMapper extends MapperBase<Person> {
-  static MapperContainer container = MapperContainer(
-    mappers: {PersonMapper()},
-  )..linkAll({ClothesMapper.container});
+class PersonMapper extends ClassMapperBase<Person> {
+  PersonMapper._();
 
-  @override
-  PersonMapperElement createElement(MapperContainer container) {
-    return PersonMapperElement._(this, container);
+  static PersonMapper? _instance;
+  static PersonMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = PersonMapper._());
+    }
+    return _instance!;
+  }
+
+  static T _guard<T>(T Function(MapperContainer) fn) {
+    ensureInitialized();
+    return fn(MapperContainer.globals);
   }
 
   @override
-  String get id => 'Person';
+  final String id = 'Person';
 
-  static final fromMap = container.fromMap<Person>;
-  static final fromJson = container.fromJson<Person>;
-}
-
-class PersonMapperElement extends MapperElementBase<Person> {
-  PersonMapperElement._(super.mapper, super.container);
+  static String _$name(Person v) => v.name;
+  static const Field<Person, String> _f$name = Field('name', _$name);
 
   @override
-  Function get decoder => decode;
-  Person decode(dynamic v) =>
-      checkedType(v, (Map<String, dynamic> map) => fromMap(map));
-  Person fromMap(Map<String, dynamic> map) => Person(
-      name: container.$get(map, 'name'),
-      clothes: container.$getOpt(map, 'clothes'));
+  final Map<Symbol, Field<Person, dynamic>> fields = const {
+    #name: _f$name,
+  };
+
+  static Person _instantiate(DecodingData data) {
+    return Person(name: data.dec(_f$name));
+  }
 
   @override
-  Function get encoder => encode;
-  dynamic encode(Person v) => toMap(v);
-  Map<String, dynamic> toMap(Person p) => {
-        'name': container.$enc(p.name, 'name'),
-        'clothes': container.$enc(p.clothes, 'clothes')
-      };
+  final Function instantiate = _instantiate;
 
-  @override
-  String stringify(Person self) =>
-      'Person(name: ${container.asString(self.name)}, clothes: ${container.asString(self.clothes)})';
-  @override
-  int hash(Person self) =>
-      container.hash(self.name) ^ container.hash(self.clothes);
-  @override
-  bool equals(Person self, Person other) =>
-      container.isEqual(self.name, other.name) &&
-      container.isEqual(self.clothes, other.clothes);
+  static Person fromMap(Map<String, dynamic> map) {
+    return _guard((c) => c.fromMap<Person>(map));
+  }
+
+  static Person fromJson(String json) {
+    return _guard((c) => c.fromJson<Person>(json));
+  }
 }
 
 mixin PersonMappable {
-  String toJson() => PersonMapper.container.toJson(this as Person);
-  Map<String, dynamic> toMap() => PersonMapper.container.toMap(this as Person);
+  String toJson() {
+    return PersonMapper._guard((c) => c.toJson(this as Person));
+  }
+
+  Map<String, dynamic> toMap() {
+    return PersonMapper._guard((c) => c.toMap(this as Person));
+  }
+
   PersonCopyWith<Person, Person, Person> get copyWith =>
       _PersonCopyWithImpl(this as Person, $identity, $identity);
   @override
-  String toString() => PersonMapper.container.asString(this);
+  String toString() {
+    return PersonMapper._guard((c) => c.asString(this));
+  }
+
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (runtimeType == other.runtimeType &&
-          PersonMapper.container.isEqual(this, other));
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (runtimeType == other.runtimeType &&
+            PersonMapper._guard((c) => c.isEqual(this, other)));
+  }
+
   @override
-  int get hashCode => PersonMapper.container.hash(this);
+  int get hashCode {
+    return PersonMapper._guard((c) => c.hash(this));
+  }
 }
 
-extension PersonValueCopy<$R, $Out extends Person>
-    on ObjectCopyWith<$R, Person, $Out> {
-  PersonCopyWith<$R, Person, $Out> get asPerson =>
-      base.as((v, t, t2) => _PersonCopyWithImpl(v, t, t2));
+extension PersonValueCopy<$R, $Out> on ObjectCopyWith<$R, Person, $Out> {
+  PersonCopyWith<$R, Person, $Out> get $asPerson =>
+      $base.as((v, t, t2) => _PersonCopyWithImpl(v, t, t2));
 }
 
-typedef PersonCopyWithBound = Person;
-
-abstract class PersonCopyWith<$R, $In extends Person, $Out extends Person>
-    implements ObjectCopyWith<$R, $In, $Out> {
-  PersonCopyWith<$R2, $In, $Out2> chain<$R2, $Out2 extends Person>(
-      Then<Person, $Out2> t, Then<$Out2, $R2> t2);
-  ListCopyWith<$R, Clothes, ClothesCopyWith<$R, Clothes, Clothes>>? get clothes;
-  $R call({String? name, List<Clothes>? clothes});
+abstract class PersonCopyWith<$R, $In extends Person, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
+  $R call({String? name});
+  PersonCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _PersonCopyWithImpl<$R, $Out extends Person>
-    extends CopyWithBase<$R, Person, $Out>
+class _PersonCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Person, $Out>
     implements PersonCopyWith<$R, Person, $Out> {
   _PersonCopyWithImpl(super.value, super.then, super.then2);
-  @override
-  PersonCopyWith<$R2, Person, $Out2> chain<$R2, $Out2 extends Person>(
-          Then<Person, $Out2> t, Then<$Out2, $R2> t2) =>
-      _PersonCopyWithImpl($value, t, t2);
 
   @override
-  ListCopyWith<$R, Clothes, ClothesCopyWith<$R, Clothes, Clothes>>?
-      get clothes => $value.clothes != null
-          ? ListCopyWith(
-              $value.clothes!,
-              (v, t) => v.copyWith.chain<$R, Clothes>($identity, t),
-              (v) => call(clothes: v))
-          : null;
+  late final ClassMapperBase<Person> $mapper = PersonMapper.ensureInitialized();
   @override
-  $R call({String? name, Object? clothes = $none}) => $then(
-      Person(name: name ?? $value.name, clothes: or(clothes, $value.clothes)));
+  $R call({String? name}) =>
+      $apply(FieldCopyWithData({if (name != null) #name: name}));
+  @override
+  Person $make(CopyWithData data) =>
+      Person(name: data.get(#name, or: $value.name));
+
+  @override
+  PersonCopyWith<$R2, Person, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _PersonCopyWithImpl($value, $cast, t);
 }

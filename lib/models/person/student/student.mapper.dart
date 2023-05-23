@@ -5,119 +5,122 @@
 
 part of 'student.dart';
 
-class StudentMapper extends MapperBase<Student> {
-  static MapperContainer? _c;
-  static MapperContainer container = _c ??
-      ((_c = MapperContainer(
-        mappers: {StudentMapper()},
-      ))
-        ..linkAll({PersonMapper.container, ClothesMapper.container}));
+class StudentMapper extends SubClassMapperBase<Student> {
+  StudentMapper._();
 
-  @override
-  StudentMapperElement createElement(MapperContainer container) {
-    return StudentMapperElement._(this, container);
+  static StudentMapper? _instance;
+  static StudentMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = StudentMapper._());
+      PersonMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  static T _guard<T>(T Function(MapperContainer) fn) {
+    ensureInitialized();
+    return fn(MapperContainer.globals);
   }
 
   @override
-  String get id => 'Student';
+  final String id = 'Student';
 
-  static final fromMap = container.fromMap<Student>;
-  static final fromJson = container.fromJson<Student>;
-}
-
-class StudentMapperElement extends MapperElementBase<Student> {
-  StudentMapperElement._(super.mapper, super.container);
-
-  @override
-  Function get decoder => decode;
-  Student decode(dynamic v) =>
-      checkedType(v, (Map<String, dynamic> map) => fromMap(map));
-  Student fromMap(Map<String, dynamic> map) => Student(
-      name: container.$get(map, 'name'),
-      clothes: container.$getOpt(map, 'clothes'),
-      university: container.$get(map, 'university'));
+  static String _$name(Student v) => v.name;
+  static const Field<Student, String> _f$name = Field('name', _$name);
+  static String _$university(Student v) => v.university;
+  static const Field<Student, String> _f$university =
+      Field('university', _$university);
 
   @override
-  Function get encoder => encode;
-  dynamic encode(Student v) => toMap(v);
-  Map<String, dynamic> toMap(Student s) => {
-        'name': container.$enc(s.name, 'name'),
-        'clothes': container.$enc(s.clothes, 'clothes'),
-        'university': container.$enc(s.university, 'university'),
-        'type': 'Student'
-      };
+  final Map<Symbol, Field<Student, dynamic>> fields = const {
+    #name: _f$name,
+    #university: _f$university,
+  };
 
   @override
-  String stringify(Student self) =>
-      'Student(name: ${container.asString(self.name)}, clothes: ${container.asString(self.clothes)}, university: ${container.asString(self.university)})';
+  final String discriminatorKey = 'type';
   @override
-  int hash(Student self) =>
-      container.hash(self.name) ^
-      container.hash(self.clothes) ^
-      container.hash(self.university);
+  final dynamic discriminatorValue = 'Student';
   @override
-  bool equals(Student self, Student other) =>
-      container.isEqual(self.name, other.name) &&
-      container.isEqual(self.clothes, other.clothes) &&
-      container.isEqual(self.university, other.university);
+  late final ClassMapperBase superMapper = PersonMapper.ensureInitialized();
+
+  static Student _instantiate(DecodingData data) {
+    return Student(
+        name: data.dec(_f$name), university: data.dec(_f$university));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static Student fromMap(Map<String, dynamic> map) {
+    return _guard((c) => c.fromMap<Student>(map));
+  }
+
+  static Student fromJson(String json) {
+    return _guard((c) => c.fromJson<Student>(json));
+  }
 }
 
 mixin StudentMappable {
-  String toJson() => StudentMapper.container.toJson(this as Student);
-  Map<String, dynamic> toMap() =>
-      StudentMapper.container.toMap(this as Student);
+  String toJson() {
+    return StudentMapper._guard((c) => c.toJson(this as Student));
+  }
+
+  Map<String, dynamic> toMap() {
+    return StudentMapper._guard((c) => c.toMap(this as Student));
+  }
+
   StudentCopyWith<Student, Student, Student> get copyWith =>
       _StudentCopyWithImpl(this as Student, $identity, $identity);
   @override
-  String toString() => StudentMapper.container.asString(this);
+  String toString() {
+    return StudentMapper._guard((c) => c.asString(this));
+  }
+
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (runtimeType == other.runtimeType &&
-          StudentMapper.container.isEqual(this, other));
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (runtimeType == other.runtimeType &&
+            StudentMapper._guard((c) => c.isEqual(this, other)));
+  }
+
   @override
-  int get hashCode => StudentMapper.container.hash(this);
+  int get hashCode {
+    return StudentMapper._guard((c) => c.hash(this));
+  }
 }
 
-extension StudentValueCopy<$R, $Out extends Person>
-    on ObjectCopyWith<$R, Student, $Out> {
-  StudentCopyWith<$R, Student, $Out> get asStudent =>
-      base.as((v, t, t2) => _StudentCopyWithImpl(v, t, t2));
+extension StudentValueCopy<$R, $Out> on ObjectCopyWith<$R, Student, $Out> {
+  StudentCopyWith<$R, Student, $Out> get $asStudent =>
+      $base.as((v, t, t2) => _StudentCopyWithImpl(v, t, t2));
 }
 
-typedef StudentCopyWithBound = Person;
-
-abstract class StudentCopyWith<$R, $In extends Student, $Out extends Person>
+abstract class StudentCopyWith<$R, $In extends Student, $Out>
     implements PersonCopyWith<$R, $In, $Out> {
-  StudentCopyWith<$R2, $In, $Out2> chain<$R2, $Out2 extends Person>(
-      Then<Student, $Out2> t, Then<$Out2, $R2> t2);
   @override
-  ListCopyWith<$R, Clothes, ClothesCopyWith<$R, Clothes, Clothes>>? get clothes;
-  @override
-  $R call({String? name, List<Clothes>? clothes, String? university});
+  $R call({String? name, String? university});
+  StudentCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _StudentCopyWithImpl<$R, $Out extends Person>
-    extends CopyWithBase<$R, Student, $Out>
+class _StudentCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, Student, $Out>
     implements StudentCopyWith<$R, Student, $Out> {
   _StudentCopyWithImpl(super.value, super.then, super.then2);
-  @override
-  StudentCopyWith<$R2, Student, $Out2> chain<$R2, $Out2 extends Person>(
-          Then<Student, $Out2> t, Then<$Out2, $R2> t2) =>
-      _StudentCopyWithImpl($value, t, t2);
 
   @override
-  ListCopyWith<$R, Clothes, ClothesCopyWith<$R, Clothes, Clothes>>?
-      get clothes => $value.clothes != null
-          ? ListCopyWith(
-              $value.clothes!,
-              (v, t) => v.copyWith.chain<$R, Clothes>($identity, t),
-              (v) => call(clothes: v))
-          : null;
+  late final ClassMapperBase<Student> $mapper =
+      StudentMapper.ensureInitialized();
   @override
-  $R call({String? name, Object? clothes = $none, String? university}) =>
-      $then(Student(
-          name: name ?? $value.name,
-          clothes: or(clothes, $value.clothes),
-          university: university ?? $value.university));
+  $R call({String? name, String? university}) => $apply(FieldCopyWithData({
+        if (name != null) #name: name,
+        if (university != null) #university: university
+      }));
+  @override
+  Student $make(CopyWithData data) => Student(
+      name: data.get(#name, or: $value.name),
+      university: data.get(#university, or: $value.university));
+
+  @override
+  StudentCopyWith<$R2, Student, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _StudentCopyWithImpl($value, $cast, t);
 }

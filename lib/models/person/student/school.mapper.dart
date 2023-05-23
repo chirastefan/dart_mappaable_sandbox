@@ -5,90 +5,104 @@
 
 part of 'school.dart';
 
-class SchoolMapper extends MapperBase<School> {
-  static MapperContainer container = MapperContainer(
-    mappers: {SchoolMapper()},
-  );
+class SchoolMapper extends ClassMapperBase<School> {
+  SchoolMapper._();
 
-  @override
-  SchoolMapperElement createElement(MapperContainer container) {
-    return SchoolMapperElement._(this, container);
+  static SchoolMapper? _instance;
+  static SchoolMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = SchoolMapper._());
+    }
+    return _instance!;
+  }
+
+  static T _guard<T>(T Function(MapperContainer) fn) {
+    ensureInitialized();
+    return fn(MapperContainer.globals);
   }
 
   @override
-  String get id => 'School';
+  final String id = 'School';
 
-  static final fromMap = container.fromMap<School>;
-  static final fromJson = container.fromJson<School>;
-}
-
-class SchoolMapperElement extends MapperElementBase<School> {
-  SchoolMapperElement._(super.mapper, super.container);
+  static String _$university(School v) => v.university;
+  static const Field<School, String> _f$university =
+      Field('university', _$university);
 
   @override
-  Function get decoder => decode;
-  School decode(dynamic v) =>
-      checkedType(v, (Map<String, dynamic> map) => fromMap(map));
-  School fromMap(Map<String, dynamic> map) =>
-      School(university: container.$get(map, 'university'));
+  final Map<Symbol, Field<School, dynamic>> fields = const {
+    #university: _f$university,
+  };
+
+  static School _instantiate(DecodingData data) {
+    return School(university: data.dec(_f$university));
+  }
 
   @override
-  Function get encoder => encode;
-  dynamic encode(School v) => toMap(v);
-  Map<String, dynamic> toMap(School s) =>
-      {'university': container.$enc(s.university, 'university')};
+  final Function instantiate = _instantiate;
 
-  @override
-  String stringify(School self) =>
-      'School(university: ${container.asString(self.university)})';
-  @override
-  int hash(School self) => container.hash(self.university);
-  @override
-  bool equals(School self, School other) =>
-      container.isEqual(self.university, other.university);
+  static School fromMap(Map<String, dynamic> map) {
+    return _guard((c) => c.fromMap<School>(map));
+  }
+
+  static School fromJson(String json) {
+    return _guard((c) => c.fromJson<School>(json));
+  }
 }
 
 mixin SchoolMappable {
-  String toJson() => SchoolMapper.container.toJson(this as School);
-  Map<String, dynamic> toMap() => SchoolMapper.container.toMap(this as School);
+  String toJson() {
+    return SchoolMapper._guard((c) => c.toJson(this as School));
+  }
+
+  Map<String, dynamic> toMap() {
+    return SchoolMapper._guard((c) => c.toMap(this as School));
+  }
+
   SchoolCopyWith<School, School, School> get copyWith =>
       _SchoolCopyWithImpl(this as School, $identity, $identity);
   @override
-  String toString() => SchoolMapper.container.asString(this);
+  String toString() {
+    return SchoolMapper._guard((c) => c.asString(this));
+  }
+
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (runtimeType == other.runtimeType &&
-          SchoolMapper.container.isEqual(this, other));
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (runtimeType == other.runtimeType &&
+            SchoolMapper._guard((c) => c.isEqual(this, other)));
+  }
+
   @override
-  int get hashCode => SchoolMapper.container.hash(this);
+  int get hashCode {
+    return SchoolMapper._guard((c) => c.hash(this));
+  }
 }
 
-extension SchoolValueCopy<$R, $Out extends School>
-    on ObjectCopyWith<$R, School, $Out> {
-  SchoolCopyWith<$R, School, $Out> get asSchool =>
-      base.as((v, t, t2) => _SchoolCopyWithImpl(v, t, t2));
+extension SchoolValueCopy<$R, $Out> on ObjectCopyWith<$R, School, $Out> {
+  SchoolCopyWith<$R, School, $Out> get $asSchool =>
+      $base.as((v, t, t2) => _SchoolCopyWithImpl(v, t, t2));
 }
 
-typedef SchoolCopyWithBound = School;
-
-abstract class SchoolCopyWith<$R, $In extends School, $Out extends School>
-    implements ObjectCopyWith<$R, $In, $Out> {
-  SchoolCopyWith<$R2, $In, $Out2> chain<$R2, $Out2 extends School>(
-      Then<School, $Out2> t, Then<$Out2, $R2> t2);
+abstract class SchoolCopyWith<$R, $In extends School, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({String? university});
+  SchoolCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _SchoolCopyWithImpl<$R, $Out extends School>
-    extends CopyWithBase<$R, School, $Out>
+class _SchoolCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, School, $Out>
     implements SchoolCopyWith<$R, School, $Out> {
   _SchoolCopyWithImpl(super.value, super.then, super.then2);
-  @override
-  SchoolCopyWith<$R2, School, $Out2> chain<$R2, $Out2 extends School>(
-          Then<School, $Out2> t, Then<$Out2, $R2> t2) =>
-      _SchoolCopyWithImpl($value, t, t2);
 
   @override
-  $R call({String? university}) =>
-      $then(School(university: university ?? $value.university));
+  late final ClassMapperBase<School> $mapper = SchoolMapper.ensureInitialized();
+  @override
+  $R call({String? university}) => $apply(
+      FieldCopyWithData({if (university != null) #university: university}));
+  @override
+  School $make(CopyWithData data) =>
+      School(university: data.get(#university, or: $value.university));
+
+  @override
+  SchoolCopyWith<$R2, School, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _SchoolCopyWithImpl($value, $cast, t);
 }

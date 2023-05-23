@@ -5,90 +5,103 @@
 
 part of 'pants.dart';
 
-class PantsMapper extends MapperBase<Pants> {
-  static MapperContainer container = MapperContainer(
-    mappers: {PantsMapper()},
-  );
+class PantsMapper extends ClassMapperBase<Pants> {
+  PantsMapper._();
 
-  @override
-  PantsMapperElement createElement(MapperContainer container) {
-    return PantsMapperElement._(this, container);
+  static PantsMapper? _instance;
+  static PantsMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = PantsMapper._());
+    }
+    return _instance!;
+  }
+
+  static T _guard<T>(T Function(MapperContainer) fn) {
+    ensureInitialized();
+    return fn(MapperContainer.globals);
   }
 
   @override
-  String get id => 'Pants';
+  final String id = 'Pants';
 
-  static final fromMap = container.fromMap<Pants>;
-  static final fromJson = container.fromJson<Pants>;
-}
-
-class PantsMapperElement extends MapperElementBase<Pants> {
-  PantsMapperElement._(super.mapper, super.container);
+  static String _$material(Pants v) => v.material;
+  static const Field<Pants, String> _f$material = Field('material', _$material);
 
   @override
-  Function get decoder => decode;
-  Pants decode(dynamic v) =>
-      checkedType(v, (Map<String, dynamic> map) => fromMap(map));
-  Pants fromMap(Map<String, dynamic> map) =>
-      Pants(material: container.$get(map, 'material'));
+  final Map<Symbol, Field<Pants, dynamic>> fields = const {
+    #material: _f$material,
+  };
+
+  static Pants _instantiate(DecodingData data) {
+    return Pants(material: data.dec(_f$material));
+  }
 
   @override
-  Function get encoder => encode;
-  dynamic encode(Pants v) => toMap(v);
-  Map<String, dynamic> toMap(Pants p) =>
-      {'material': container.$enc(p.material, 'material')};
+  final Function instantiate = _instantiate;
 
-  @override
-  String stringify(Pants self) =>
-      'Pants(material: ${container.asString(self.material)})';
-  @override
-  int hash(Pants self) => container.hash(self.material);
-  @override
-  bool equals(Pants self, Pants other) =>
-      container.isEqual(self.material, other.material);
+  static Pants fromMap(Map<String, dynamic> map) {
+    return _guard((c) => c.fromMap<Pants>(map));
+  }
+
+  static Pants fromJson(String json) {
+    return _guard((c) => c.fromJson<Pants>(json));
+  }
 }
 
 mixin PantsMappable {
-  String toJson() => PantsMapper.container.toJson(this as Pants);
-  Map<String, dynamic> toMap() => PantsMapper.container.toMap(this as Pants);
+  String toJson() {
+    return PantsMapper._guard((c) => c.toJson(this as Pants));
+  }
+
+  Map<String, dynamic> toMap() {
+    return PantsMapper._guard((c) => c.toMap(this as Pants));
+  }
+
   PantsCopyWith<Pants, Pants, Pants> get copyWith =>
       _PantsCopyWithImpl(this as Pants, $identity, $identity);
   @override
-  String toString() => PantsMapper.container.asString(this);
+  String toString() {
+    return PantsMapper._guard((c) => c.asString(this));
+  }
+
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (runtimeType == other.runtimeType &&
-          PantsMapper.container.isEqual(this, other));
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (runtimeType == other.runtimeType &&
+            PantsMapper._guard((c) => c.isEqual(this, other)));
+  }
+
   @override
-  int get hashCode => PantsMapper.container.hash(this);
+  int get hashCode {
+    return PantsMapper._guard((c) => c.hash(this));
+  }
 }
 
-extension PantsValueCopy<$R, $Out extends Pants>
-    on ObjectCopyWith<$R, Pants, $Out> {
-  PantsCopyWith<$R, Pants, $Out> get asPants =>
-      base.as((v, t, t2) => _PantsCopyWithImpl(v, t, t2));
+extension PantsValueCopy<$R, $Out> on ObjectCopyWith<$R, Pants, $Out> {
+  PantsCopyWith<$R, Pants, $Out> get $asPants =>
+      $base.as((v, t, t2) => _PantsCopyWithImpl(v, t, t2));
 }
 
-typedef PantsCopyWithBound = Pants;
-
-abstract class PantsCopyWith<$R, $In extends Pants, $Out extends Pants>
-    implements ObjectCopyWith<$R, $In, $Out> {
-  PantsCopyWith<$R2, $In, $Out2> chain<$R2, $Out2 extends Pants>(
-      Then<Pants, $Out2> t, Then<$Out2, $R2> t2);
+abstract class PantsCopyWith<$R, $In extends Pants, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({String? material});
+  PantsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _PantsCopyWithImpl<$R, $Out extends Pants>
-    extends CopyWithBase<$R, Pants, $Out>
+class _PantsCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Pants, $Out>
     implements PantsCopyWith<$R, Pants, $Out> {
   _PantsCopyWithImpl(super.value, super.then, super.then2);
-  @override
-  PantsCopyWith<$R2, Pants, $Out2> chain<$R2, $Out2 extends Pants>(
-          Then<Pants, $Out2> t, Then<$Out2, $R2> t2) =>
-      _PantsCopyWithImpl($value, t, t2);
 
   @override
+  late final ClassMapperBase<Pants> $mapper = PantsMapper.ensureInitialized();
+  @override
   $R call({String? material}) =>
-      $then(Pants(material: material ?? $value.material));
+      $apply(FieldCopyWithData({if (material != null) #material: material}));
+  @override
+  Pants $make(CopyWithData data) =>
+      Pants(material: data.get(#material, or: $value.material));
+
+  @override
+  PantsCopyWith<$R2, Pants, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _PantsCopyWithImpl($value, $cast, t);
 }
