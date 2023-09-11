@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:dart_mappable_sandbox/models/person/clothes/pants.dart';
+import 'package:dart_mappable_sandbox/models/entity/clothes/pants.dart';
 
 part 'student_pants.mapper.dart';
 

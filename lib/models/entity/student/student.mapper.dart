@@ -12,7 +12,7 @@ class StudentMapper extends SubClassMapperBase<Student> {
   static StudentMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = StudentMapper._());
-      PersonMapper.ensureInitialized().addSubMapper(_instance!);
+      EntityMapper.ensureInitialized().addSubMapper(_instance!);
     }
     return _instance!;
   }
@@ -42,7 +42,7 @@ class StudentMapper extends SubClassMapperBase<Student> {
   @override
   final dynamic discriminatorValue = 'Student';
   @override
-  late final ClassMapperBase superMapper = PersonMapper.ensureInitialized();
+  late final ClassMapperBase superMapper = EntityMapper.ensureInitialized();
 
   static Student _instantiate(DecodingData data) {
     return Student(
@@ -96,7 +96,7 @@ extension StudentValueCopy<$R, $Out> on ObjectCopyWith<$R, Student, $Out> {
 }
 
 abstract class StudentCopyWith<$R, $In extends Student, $Out>
-    implements PersonCopyWith<$R, $In, $Out> {
+    implements EntityCopyWith<$R, $In, $Out> {
   @override
   $R call({String? name, String? university});
   StudentCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
