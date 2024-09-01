@@ -1,10 +1,11 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:dart_mappable_sandbox/models/entity/person/person.dart';
 
 part 'entity.mapper.dart';
 
-@MappableClass()
+@MappableClass(includeSubClasses: [Person])
 abstract class Entity with EntityMappable {
-  final String name;
+  final String id;
 
-  const Entity({required this.name});
+  const Entity({required this.id});
 }

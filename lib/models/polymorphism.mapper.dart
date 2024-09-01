@@ -1,7 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
+// ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'polymorphism.dart';
 
@@ -16,11 +17,6 @@ class CatBMapper extends ClassMapperBase<CatB> {
     return _instance!;
   }
 
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
-  }
-
   @override
   final String id = 'CatB';
 
@@ -28,7 +24,7 @@ class CatBMapper extends ClassMapperBase<CatB> {
   static const Field<CatB, String> _f$color = Field('color', _$color);
 
   @override
-  final Map<Symbol, Field<CatB, dynamic>> fields = const {
+  final MappableFields<CatB> fields = const {
     #color: _f$color,
   };
 
@@ -40,40 +36,38 @@ class CatBMapper extends ClassMapperBase<CatB> {
   final Function instantiate = _instantiate;
 
   static CatB fromMap(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<CatB>(map));
+    return ensureInitialized().decodeMap<CatB>(map);
   }
 
   static CatB fromJson(String json) {
-    return _guard((c) => c.fromJson<CatB>(json));
+    return ensureInitialized().decodeJson<CatB>(json);
   }
 }
 
 mixin CatBMappable {
   String toJson() {
-    return CatBMapper._guard((c) => c.toJson(this as CatB));
+    return CatBMapper.ensureInitialized().encodeJson<CatB>(this as CatB);
   }
 
   Map<String, dynamic> toMap() {
-    return CatBMapper._guard((c) => c.toMap(this as CatB));
+    return CatBMapper.ensureInitialized().encodeMap<CatB>(this as CatB);
   }
 
   CatBCopyWith<CatB, CatB, CatB> get copyWith =>
       _CatBCopyWithImpl(this as CatB, $identity, $identity);
   @override
   String toString() {
-    return CatBMapper._guard((c) => c.asString(this));
+    return CatBMapper.ensureInitialized().stringifyValue(this as CatB);
   }
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            CatBMapper._guard((c) => c.isEqual(this, other)));
+    return CatBMapper.ensureInitialized().equalsValue(this as CatB, other);
   }
 
   @override
   int get hashCode {
-    return CatBMapper._guard((c) => c.hash(this));
+    return CatBMapper.ensureInitialized().hashValue(this as CatB);
   }
 }
 
@@ -116,11 +110,6 @@ class DogBMapper extends ClassMapperBase<DogB> {
     return _instance!;
   }
 
-  static T _guard<T>(T Function(MapperContainer) fn) {
-    ensureInitialized();
-    return fn(MapperContainer.globals);
-  }
-
   @override
   final String id = 'DogB';
 
@@ -128,7 +117,7 @@ class DogBMapper extends ClassMapperBase<DogB> {
   static const Field<DogB, int> _f$age = Field('age', _$age);
 
   @override
-  final Map<Symbol, Field<DogB, dynamic>> fields = const {
+  final MappableFields<DogB> fields = const {
     #age: _f$age,
   };
 
@@ -140,40 +129,38 @@ class DogBMapper extends ClassMapperBase<DogB> {
   final Function instantiate = _instantiate;
 
   static DogB fromMap(Map<String, dynamic> map) {
-    return _guard((c) => c.fromMap<DogB>(map));
+    return ensureInitialized().decodeMap<DogB>(map);
   }
 
   static DogB fromJson(String json) {
-    return _guard((c) => c.fromJson<DogB>(json));
+    return ensureInitialized().decodeJson<DogB>(json);
   }
 }
 
 mixin DogBMappable {
   String toJson() {
-    return DogBMapper._guard((c) => c.toJson(this as DogB));
+    return DogBMapper.ensureInitialized().encodeJson<DogB>(this as DogB);
   }
 
   Map<String, dynamic> toMap() {
-    return DogBMapper._guard((c) => c.toMap(this as DogB));
+    return DogBMapper.ensureInitialized().encodeMap<DogB>(this as DogB);
   }
 
   DogBCopyWith<DogB, DogB, DogB> get copyWith =>
       _DogBCopyWithImpl(this as DogB, $identity, $identity);
   @override
   String toString() {
-    return DogBMapper._guard((c) => c.asString(this));
+    return DogBMapper.ensureInitialized().stringifyValue(this as DogB);
   }
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            DogBMapper._guard((c) => c.isEqual(this, other)));
+    return DogBMapper.ensureInitialized().equalsValue(this as DogB, other);
   }
 
   @override
   int get hashCode {
-    return DogBMapper._guard((c) => c.hash(this));
+    return DogBMapper.ensureInitialized().hashValue(this as DogB);
   }
 }
 
