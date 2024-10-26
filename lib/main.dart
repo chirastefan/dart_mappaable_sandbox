@@ -1,10 +1,4 @@
-import 'package:dart_mappable_sandbox/models/entity/game/football/football_game.dart';
-import 'package:dart_mappable_sandbox/models/entity/game/football/game_score/football_game_score.dart';
-import 'package:dart_mappable_sandbox/models/entity/game/volleyball/game_score/volleyball_game_score.dart';
-import 'package:dart_mappable_sandbox/models/entity/game/volleyball/volleyball_game.dart';
-import 'package:dart_mappable_sandbox/models/entity/person/player/football/football_player.dart';
-import 'package:dart_mappable_sandbox/models/entity/person/player/volleyball/volleyball_player.dart';
-import 'package:dart_mappable_sandbox/models/polymorphism.dart';
+import 'package:dart_mappable_sandbox/sandbox1/models/polymorphism.dart';
 
 void main() {
   const cat = CatB('Cat');

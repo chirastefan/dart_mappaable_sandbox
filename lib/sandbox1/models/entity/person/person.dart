@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:dart_mappable_sandbox/models/entity/entity.dart';
+import 'package:dart_mappable_sandbox/sandbox1//models/entity/entity.dart';
 
 part 'person.mapper.dart';
 

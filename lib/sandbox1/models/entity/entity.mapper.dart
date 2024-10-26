@@ -30,8 +30,7 @@ class EntityMapper extends ClassMapperBase<Entity> {
   };
 
   static Entity _instantiate(DecodingData data) {
-    throw MapperException.missingSubclass(
-        'Entity', 'type', '${data.value['type']}');
+    throw MapperException.missingConstructor('Entity');
   }
 
   @override

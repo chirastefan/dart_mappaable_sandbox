@@ -6,14 +6,14 @@
 
 part of 'player.dart';
 
-class PlayerMapper extends SubClassMapperBase<Player> {
+class PlayerMapper extends ClassMapperBase<Player> {
   PlayerMapper._();
 
   static PlayerMapper? _instance;
   static PlayerMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = PlayerMapper._());
-      PersonMapper.ensureInitialized().addSubMapper(_instance!);
+      PersonMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -42,18 +42,6 @@ class PlayerMapper extends SubClassMapperBase<Player> {
     #tShirtColor: _f$tShirtColor,
     #score: _f$score,
   };
-
-  @override
-  final String discriminatorKey = 'type';
-  @override
-  final dynamic discriminatorValue = 'Player';
-  @override
-  late final ClassMapperBase superMapper = PersonMapper.ensureInitialized();
-
-  @override
-  DecodingContext inherit(DecodingContext context) {
-    return context.inherit(args: () => [dynamic]);
-  }
 
   static Player<C> _instantiate<C>(DecodingData data) {
     throw MapperException.missingConstructor('Player');

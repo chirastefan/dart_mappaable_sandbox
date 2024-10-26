@@ -6,14 +6,14 @@
 
 part of 'volleyball_player.dart';
 
-class VolleyballPlayerMapper extends SubClassMapperBase<VolleyballPlayer> {
+class VolleyballPlayerMapper extends ClassMapperBase<VolleyballPlayer> {
   VolleyballPlayerMapper._();
 
   static VolleyballPlayerMapper? _instance;
   static VolleyballPlayerMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = VolleyballPlayerMapper._());
-      PlayerMapper.ensureInitialized().addSubMapper(_instance!);
+      PlayerMapper.ensureInitialized();
       VolleyballGameScoreMapper.ensureInitialized();
     }
     return _instance!;
@@ -40,18 +40,6 @@ class VolleyballPlayerMapper extends SubClassMapperBase<VolleyballPlayer> {
     #tShirtColor: _f$tShirtColor,
     #score: _f$score,
   };
-
-  @override
-  final String discriminatorKey = 'type';
-  @override
-  final dynamic discriminatorValue = 'VolleyballPlayer';
-  @override
-  late final ClassMapperBase superMapper = PlayerMapper.ensureInitialized();
-
-  @override
-  DecodingContext inherit(DecodingContext context) {
-    return context.inherit(args: () => []);
-  }
 
   static VolleyballPlayer _instantiate(DecodingData data) {
     return VolleyballPlayer(

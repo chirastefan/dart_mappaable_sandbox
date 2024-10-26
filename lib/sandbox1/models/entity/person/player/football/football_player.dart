@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:dart_mappable_sandbox/models/entity/game/football/game_score/football_game_score.dart';
-import 'package:dart_mappable_sandbox/models/entity/person/player/player.dart';
+import 'package:dart_mappable_sandbox/sandbox1/models/entity/game/football/game_score/football_game_score.dart';
+import 'package:dart_mappable_sandbox/sandbox1/models/entity/person/player/player.dart';
 
 part 'football_player.mapper.dart';
 

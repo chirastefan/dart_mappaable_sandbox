@@ -6,14 +6,14 @@
 
 part of 'football_player.dart';
 
-class FootballPlayerMapper extends SubClassMapperBase<FootballPlayer> {
+class FootballPlayerMapper extends ClassMapperBase<FootballPlayer> {
   FootballPlayerMapper._();
 
   static FootballPlayerMapper? _instance;
   static FootballPlayerMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = FootballPlayerMapper._());
-      PlayerMapper.ensureInitialized().addSubMapper(_instance!);
+      PlayerMapper.ensureInitialized();
       FootballGameScoreMapper.ensureInitialized();
     }
     return _instance!;
@@ -40,18 +40,6 @@ class FootballPlayerMapper extends SubClassMapperBase<FootballPlayer> {
     #tShirtColor: _f$tShirtColor,
     #score: _f$score,
   };
-
-  @override
-  final String discriminatorKey = 'type';
-  @override
-  final dynamic discriminatorValue = 'FootballPlayer';
-  @override
-  late final ClassMapperBase superMapper = PlayerMapper.ensureInitialized();
-
-  @override
-  DecodingContext inherit(DecodingContext context) {
-    return context.inherit(args: () => []);
-  }
 
   static FootballPlayer _instantiate(DecodingData data) {
     return FootballPlayer(

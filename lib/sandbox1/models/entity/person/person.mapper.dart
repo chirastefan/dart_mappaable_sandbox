@@ -6,14 +6,14 @@
 
 part of 'person.dart';
 
-class PersonMapper extends SubClassMapperBase<Person> {
+class PersonMapper extends ClassMapperBase<Person> {
   PersonMapper._();
 
   static PersonMapper? _instance;
   static PersonMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = PersonMapper._());
-      EntityMapper.ensureInitialized().addSubMapper(_instance!);
+      EntityMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -31,13 +31,6 @@ class PersonMapper extends SubClassMapperBase<Person> {
     #id: _f$id,
     #name: _f$name,
   };
-
-  @override
-  final String discriminatorKey = 'type';
-  @override
-  final dynamic discriminatorValue = 'Person';
-  @override
-  late final ClassMapperBase superMapper = EntityMapper.ensureInitialized();
 
   static Person _instantiate(DecodingData data) {
     throw MapperException.missingConstructor('Person');
