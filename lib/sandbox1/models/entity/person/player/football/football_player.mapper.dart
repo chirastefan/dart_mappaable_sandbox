@@ -40,6 +40,8 @@ class FootballPlayerMapper extends ClassMapperBase<FootballPlayer> {
     #tShirtColor: _f$tShirtColor,
     #score: _f$score,
   };
+  @override
+  final bool ignoreNull = true;
 
   static FootballPlayer _instantiate(DecodingData data) {
     return FootballPlayer(

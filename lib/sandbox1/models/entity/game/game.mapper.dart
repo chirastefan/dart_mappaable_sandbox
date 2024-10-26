@@ -34,6 +34,8 @@ class GameMapper extends ClassMapperBase<Game> {
   final MappableFields<Game> fields = const {
     #players: _f$players,
   };
+  @override
+  final bool ignoreNull = true;
 
   static Game<T> _instantiate<T extends Player<dynamic>>(DecodingData data) {
     return Game(players: data.dec(_f$players));

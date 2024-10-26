@@ -27,6 +27,8 @@ class CatBMapper extends ClassMapperBase<CatB> {
   final MappableFields<CatB> fields = const {
     #color: _f$color,
   };
+  @override
+  final bool ignoreNull = true;
 
   static CatB _instantiate(DecodingData data) {
     return CatB(data.dec(_f$color));
@@ -120,6 +122,8 @@ class DogBMapper extends ClassMapperBase<DogB> {
   final MappableFields<DogB> fields = const {
     #age: _f$age,
   };
+  @override
+  final bool ignoreNull = true;
 
   static DogB _instantiate(DecodingData data) {
     return DogB(data.dec(_f$age));

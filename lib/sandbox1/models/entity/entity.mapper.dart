@@ -28,6 +28,8 @@ class EntityMapper extends ClassMapperBase<Entity> {
   final MappableFields<Entity> fields = const {
     #id: _f$id,
   };
+  @override
+  final bool ignoreNull = true;
 
   static Entity _instantiate(DecodingData data) {
     throw MapperException.missingConstructor('Entity');

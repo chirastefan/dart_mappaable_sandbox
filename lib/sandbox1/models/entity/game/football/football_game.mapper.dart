@@ -35,6 +35,8 @@ class FootballGameMapper extends ClassMapperBase<FootballGame> {
     #players: _f$players,
     #score: _f$score,
   };
+  @override
+  final bool ignoreNull = true;
 
   static FootballGame _instantiate(DecodingData data) {
     return FootballGame(

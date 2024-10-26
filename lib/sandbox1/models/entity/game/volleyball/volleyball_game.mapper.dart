@@ -35,6 +35,8 @@ class VolleyballGameMapper extends ClassMapperBase<VolleyballGame> {
     #players: _f$players,
     #score: _f$score,
   };
+  @override
+  final bool ignoreNull = true;
 
   static VolleyballGame _instantiate(DecodingData data) {
     return VolleyballGame(

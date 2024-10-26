@@ -28,6 +28,8 @@ class VolleyballGameScoreMapper extends ClassMapperBase<VolleyballGameScore> {
   final MappableFields<VolleyballGameScore> fields = const {
     #score: _f$score,
   };
+  @override
+  final bool ignoreNull = true;
 
   static VolleyballGameScore _instantiate(DecodingData data) {
     return VolleyballGameScore(score: data.dec(_f$score));

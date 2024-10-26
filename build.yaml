@@ -6,8 +6,8 @@ global_options:
       # the case style for stringified enum values, defaults to 'none'
       enumCaseStyle: none # or 'camelCase', 'snakeCase', etc.
       # if true removes all map keys with null values
-      ignoreNull: false # or true
+      ignoreNull: true # or true
       # used as property name for type discriminators
 #      discriminatorKey: type
       # used to specify which methods to generate (all by default)
-      generateMethods: [ decode, encode, copy, stringify, equals ]
+#      generateMethods: [ decode, encode, copy, stringify, equals ]

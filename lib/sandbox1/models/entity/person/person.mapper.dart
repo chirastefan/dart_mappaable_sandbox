@@ -31,6 +31,8 @@ class PersonMapper extends ClassMapperBase<Person> {
     #id: _f$id,
     #name: _f$name,
   };
+  @override
+  final bool ignoreNull = true;
 
   static Person _instantiate(DecodingData data) {
     throw MapperException.missingConstructor('Person');

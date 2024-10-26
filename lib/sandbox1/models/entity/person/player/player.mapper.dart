@@ -42,6 +42,8 @@ class PlayerMapper extends ClassMapperBase<Player> {
     #tShirtColor: _f$tShirtColor,
     #score: _f$score,
   };
+  @override
+  final bool ignoreNull = true;
 
   static Player<C> _instantiate<C>(DecodingData data) {
     throw MapperException.missingConstructor('Player');

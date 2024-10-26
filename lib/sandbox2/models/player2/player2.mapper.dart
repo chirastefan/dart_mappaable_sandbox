@@ -37,6 +37,8 @@ class Player2Mapper extends ClassMapperBase<Player2> {
     #name: _f$name,
     #score: _f$score,
   };
+  @override
+  final bool ignoreNull = true;
 
   static Player2<S> _instantiate<S>(DecodingData data) {
     throw MapperException.missingConstructor('Player2');

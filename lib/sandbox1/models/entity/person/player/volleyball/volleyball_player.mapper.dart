@@ -40,6 +40,8 @@ class VolleyballPlayerMapper extends ClassMapperBase<VolleyballPlayer> {
     #tShirtColor: _f$tShirtColor,
     #score: _f$score,
   };
+  @override
+  final bool ignoreNull = true;
 
   static VolleyballPlayer _instantiate(DecodingData data) {
     return VolleyballPlayer(

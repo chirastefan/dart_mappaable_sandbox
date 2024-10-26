@@ -27,6 +27,8 @@ class FootballGameScoreMapper extends ClassMapperBase<FootballGameScore> {
   final MappableFields<FootballGameScore> fields = const {
     #score: _f$score,
   };
+  @override
+  final bool ignoreNull = true;
 
   static FootballGameScore _instantiate(DecodingData data) {
     return FootballGameScore(score: data.dec(_f$score));
