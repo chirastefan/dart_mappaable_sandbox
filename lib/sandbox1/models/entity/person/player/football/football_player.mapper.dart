@@ -28,7 +28,7 @@ class FootballPlayerMapper extends ClassMapperBase<FootballPlayer> {
   static const Field<FootballPlayer, String> _f$name = Field('name', _$name);
   static String _$tShirtColor(FootballPlayer v) => v.tShirtColor;
   static const Field<FootballPlayer, String> _f$tShirtColor =
-      Field('tShirtColor', _$tShirtColor, key: 't_shirt_color');
+      Field('tShirtColor', _$tShirtColor, key: r't_shirt_color');
   static FootballGameScore _$score(FootballPlayer v) => v.score;
   static const Field<FootballPlayer, FootballGameScore> _f$score =
       Field('score', _$score);

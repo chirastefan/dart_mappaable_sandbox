@@ -29,7 +29,7 @@ class PlayerMapper extends ClassMapperBase<Player> {
   static const Field<Player, String> _f$name = Field('name', _$name);
   static String _$tShirtColor(Player v) => v.tShirtColor;
   static const Field<Player, String> _f$tShirtColor =
-      Field('tShirtColor', _$tShirtColor, key: 't_shirt_color');
+      Field('tShirtColor', _$tShirtColor, key: r't_shirt_color');
   static dynamic _$score(Player v) => v.score;
   static dynamic _arg$score<C>(f) => f<C>();
   static const Field<Player, dynamic> _f$score =

@@ -28,7 +28,7 @@ class VolleyballPlayerMapper extends ClassMapperBase<VolleyballPlayer> {
   static const Field<VolleyballPlayer, String> _f$name = Field('name', _$name);
   static String _$tShirtColor(VolleyballPlayer v) => v.tShirtColor;
   static const Field<VolleyballPlayer, String> _f$tShirtColor =
-      Field('tShirtColor', _$tShirtColor, key: 't_shirt_color');
+      Field('tShirtColor', _$tShirtColor, key: r't_shirt_color');
   static VolleyballGameScore _$score(VolleyballPlayer v) => v.score;
   static const Field<VolleyballPlayer, VolleyballGameScore> _f$score =
       Field('score', _$score);
